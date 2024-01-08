@@ -1,24 +1,38 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
+import ContactUs from './components/ContactUs';
+import Footer from './components/Footer';
+import Headr from './components/Headr';
+import Home from './components/Home';
+import Uslug from './components/Uslug';
+import Single from './components/Single';
+import { useEffect } from 'react';
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <ScrollToTop />
+        <Headr />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Uslug />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path='/services/:id' element={<Single/>}/>
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
